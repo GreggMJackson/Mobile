@@ -1,0 +1,837 @@
+﻿<style>
+    .floater {
+        position:absolute;
+        border-style:solid;
+        top:10px;
+        left:10px;
+        width:50px;
+        height:50px;
+    }
+    img {
+        /*border-style:solid;
+        border-width:1px;*/
+        margin: 2px 0px 2px 2px;
+        z-Index: -1;
+    }
+    .myUnit {
+        min-height:100%;
+    }
+    #Xamarin, #Sencha, #JQueryM, #ReactNative, #MobileAngular, #Framework7, #Ionic, #Cordova, #KendoUI, #Quasar, #OnsenUI, #Titanium, #NativeScript{
+        position:absolute;
+        border-style:solid;
+        border-width:1px;
+        border-radius:20px;
+    }
+    #XamarinForms, #XamarinIOS, #XamarinAndroid, #ApacheDOM, #ApacheWKWebView, #ApacheWebView, #ApacheWinPhoneSDK {
+        position:absolute;
+        border-style:solid;
+        border-width:1px;
+        border-radius:10px;
+        font-size: 10px;
+        font-weight:bold;
+        z-index:1000;
+    }
+
+    .Arch {
+        font-size: 10px;
+        font-weight:bold;
+        margin:13px 0px 0px 0px;
+    }
+    #Arches {
+        position:absolute;
+    }
+
+    #Natives{
+        position:absolute;
+    }
+    .SmallIcons {
+        margin: 0px 5px 0px 5px
+    }
+</style>
+<script type="text/javascript">
+    let myZoom = 0;
+    let lineWidth = 6;
+    let shim = 0;
+    document.addEventListener('wheel', function(event){
+        event.preventDefault();
+        if (event.deltaY < 0) {
+            myZoom = Math.min(120, (myZoom + 20));
+        }
+        else{
+            myZoom = Math.max(0, (myZoom - 20));
+        }
+        drawFloaters();
+    });
+    let getHeight = ()=>{
+        return document.documentElement.clientHeight;
+        let D = document;
+        //alert(D.body.scrollHeight + ", " + D.documentElement.scrollHeight + ", " + D.body.offsetHeight + ", " + D.documentElement.offsetHeight + ", " + D.body.clientHeight + ", " + D.documentElement.clientHeight  );
+        //return Math.max(
+        //    D.body.scrollHeight, D.documentElement.scrollHeight,
+        //    D.body.offsetHeight, D.documentElement.offsetHeight,
+        //    D.body.clientHeight, D.documentElement.clientHeight
+        //);    
+    };
+    let getWidth = ()=>{
+        let D=document;
+    //alert(
+    //        D.body.scrollWidth + ", " + D.documentElement.scrollWidth + ", " +
+    //        D.body.offsetWidth + ", " + D.documentElement.offsetWidth + ", " +
+    //        D.body.clientWidth + ", " + D.documentElement.clientWidth)
+
+        return Math.min(
+            D.body.scrollWidth, D.documentElement.scrollWidth,
+            D.body.offsetWidth, D.documentElement.offsetWidth,
+            D.body.clientWidth, D.documentElement.clientWidth
+        );    
+    }
+    let drawFloaters = ()=>{
+        let height = getHeight();
+        let width = getWidth();
+
+        let graphics = document.getElementsByClassName('Graphic');
+        for(graphic of graphics){
+            graphic.style.display="none"
+        }
+        let productImgs = document.getElementsByClassName('Product');
+        if(myZoom >= -1){
+            for(product of productImgs){
+                product.style.display="";
+                product.style.width = (width /6) + "px";
+                product.style.height = (height/10) + "px";
+            }
+            if(myZoom > 0){
+                let companyImgs = document.getElementsByClassName('Company');
+                for(company of companyImgs)
+                    company.style = "display:'' width:'' height:''";
+                for(product of productImgs)
+                    product.style = "display:'' width:'' height:''";
+                let nativeImgs = document.getElementById('Natives')
+                nativeImgs.style = "display:'' width:'' height:''; width:5%";
+                if(myZoom > 20){
+                    let legendImgs = document.getElementsByClassName('Legend')
+                    for(legend of legendImgs)
+                        legend.style = "display:'' width:'' height:''";
+                    if(myZoom > 40){
+                        let smallIcons = document.getElementsByClassName('SmallIcons');
+                        for(smallIcon of smallIcons)
+                            smallIcon.style = "display:'' width:'' height:''";
+                        if(myZoom > 60){
+                            let opsDepsImgs = document.getElementsByClassName('OpsDeps')
+                            let languageImgs = document.getElementsByClassName('Language');
+                            for(opsDep of opsDepsImgs)
+                                opsDep.style = "display: ''; width:''; height:''";
+                            for(language of languageImgs)
+                                language.style = "display:'' width:'' height:''";
+                            if(myZoom > 80){
+                                let details = document.getElementsByClassName('Details')
+                                for(detail of details){
+                                    detail.style.display="";
+                                    detail.style.width="";
+                                    detail.style.height="";
+                                }
+                                if(myZoom > 100){
+                                    let archs = document.getElementById('Arches');
+                                        archs.style = "display:''; width:''; height:'';";
+        }   }   }   }   }   }   }
+        let native          = document.getElementById('native');
+        let compileToNative = document.getElementById('compileToNative');
+        let hybridWrapper   = document.getElementById('hybridWrapper');
+
+        hybridWrapper.style.top    = (shim + 1) - (myZoom/20) + "px";
+        hybridWrapper.style.left   = "2px";
+        hybridWrapper.style.width  = (width - 40) + "px";
+        hybridWrapper.style.height = (height - (16-(myZoom/20))) + "px";
+        hybridWrapper.style.borderRadius = "20px";
+        hybridWrapper.style.borderWidth = (1+(6 - (myZoom / 20))) + "px";
+
+        compileToNative.style.top    = ((shim - 5)+ (height/4)) + "px";
+        compileToNative.style.left   = (2 + (lineWidth*1.5)) + "px";
+        compileToNative.style.width  = (((width/4)*3)-130) + "px";
+        compileToNative.style.height = (height/2) + "px";
+        compileToNative.style.borderRadius = "20px";
+        compileToNative.style.borderWidth = (1+(6 - (myZoom / 20)))+ "px";
+
+        native.style.top    = (shim + (((height/4) + 24) - (myZoom/20))) + "px";
+        native.style.left   = (width/4) + "px";
+        native.style.width  = ((width/2) - 150) + "px";
+        native.style.height = ((height/4)-30) + "px";
+        native.style.borderRadius = "20px";
+        native.style.borderWidth = (1+(6 - (myZoom / 20))) + "px";
+
+        let WKWebView = document.getElementById('ApacheWKWebView');
+        WKWebView.style.top    = (shim + (((height/4) + 55) - (myZoom/20))) + "px";
+        WKWebView.style.left   = (shim + ((width/4)*3) -180) + "px";
+        WKWebView.style.width  = (width/15)  + "px";
+        WKWebView.style.height = (height/40) + "px";
+        let WebView = document.getElementById('ApacheWebView');
+        WebView.style.top  = (shim + (((height/4) + 78) - (myZoom/20))) + "px";
+        WebView.style.left = (shim + ((width/4)*3) -180) + "px";
+        WebView.style.width  = (width/15)  + "px";
+        WebView.style.height = (height/40) + "px";
+        let WinPhone = document.getElementById('ApacheWinPhoneSDK');
+        WinPhone.style.top  = (shim + (((height/4) + 101) - (myZoom/20))) + "px";
+        WinPhone.style.left = (shim + ((width/4)*3) -180) + "px";
+        WinPhone.style.width  = (width/15)  + "px";
+        WinPhone.style.height = (height/40) + "px";
+        let ApacheDOM = document.getElementById('ApacheDOM');
+        ApacheDOM.style.top  = (shim + (((height/4) + 55) - (myZoom/20))) + "px";
+        ApacheDOM.style.left = (shim + ((width/4)*3) - 55) + "px";
+        ApacheDOM.style.width  = (width/30)  + "px";
+        ApacheDOM.style.height = (height/13) + "px";
+
+        let XamarinForms = document.getElementById('XamarinForms');
+        XamarinForms.style.top  = (shim + (((height/4) + 55) - (myZoom/20))) + "px";
+        XamarinForms.style.left = (shim + (width/4) - 120) + "px";
+        XamarinForms.style.width  = (width/20)  + "px";
+        XamarinForms.style.height = (height/5.6) + "px";
+        let XamarinAndroid = document.getElementById('XamarinAndroid');
+        XamarinAndroid.style.top  = (shim + (((height/4) + 78) - (myZoom/20))) + "px";
+        XamarinAndroid.style.left = (shim + ((width/4)-26)) + "px";
+        XamarinAndroid.style.width  = (width/15)  + "px";
+        XamarinAndroid.style.height = (height/40) + "px";
+        let XamarinIOS = document.getElementById('XamarinIOS');
+        XamarinIOS.style.top    = (shim + (((height/4) + 55) - (myZoom/20))) + "px";
+        XamarinIOS.style.left   = (shim + ((width/4))-26)  + "px";
+        XamarinIOS.style.width  = (width/15)  + "px";
+        XamarinIOS.style.height = (height/40) + "px";
+
+        let nativeTitle          = document.getElementById('nativeTitle');
+        let compileToNativeTitle = document.getElementById('compileToNativeTitle');
+        let hybridWrapperTitle   = document.getElementById('hybridWrapperTitle');
+
+        hybridWrapperTitle.style.top    = ((shim + ((height/4) - (myZoom/20)))-30) + "px";
+        hybridWrapperTitle.style.left   =((width/4)+40) + "px";
+        hybridWrapperTitle.style.fontSize   = 18 - (myZoom / 20) + "px";
+
+        compileToNativeTitle.style.top  = (shim + ((height/4) - (myZoom/20))) + "px";
+        compileToNativeTitle.style.left = ((width/4)+40) + "px";
+        compileToNativeTitle.style.fontSize = 18 - (myZoom / 20) + "px";
+
+        nativeTitle.style.top           = (shim + (((height/4) + 26) - (myZoom/20))) + "px";
+        nativeTitle.style.left          = ((width/4)+40) + "px";
+        nativeTitle.style.fontSize      = 18 - (myZoom / 20) + "px";
+
+        let nativeImages = document.getElementsByClassName('nativeImg');
+        for(img of nativeImages){
+            img.height = ((height/4)/7)
+        }
+        let archDiv = document.getElementsByClassName('Arch');
+        for(txtDiv of archDiv){
+            txtDiv.height = 100;//((height/4)/7)
+        }
+        let companies = document.getElementsByClassName("Company");
+        for(company of companies){
+            company.height = (height/25);
+            company.width  = (width/15);
+        }
+
+        let products = document.getElementsByClassName("Product");
+        for(product of products){
+            product.height =(height/20);
+            product.width  = (width/10);
+            //product.style.top  = (height/4) + "px";
+            //product.style.left = (100 + ((width/4)/2)) + "px";
+        }
+
+        let legends = document.getElementsByClassName("Legend");
+        for(legend of legends){
+            legend.height = (height/35);
+        }
+
+        let opsDeps = document.getElementsByClassName('OpsDeps');
+        for(opsDep of opsDeps){
+            opsDep.height = (height/35);
+        }
+
+        let smallIcons = document.getElementsByClassName('SmallIcons');
+        for(smallIcon of smallIcons){
+            smallIcon.height = (height/35);
+        }
+
+        let languages = document.getElementsByClassName('Language');
+        for(language of languages){
+            language.height = (height/35);
+        }
+
+        let sencha = document.getElementById('Sencha');
+        sencha.style.width = (width /5.5) + "px";
+        sencha.style.top   = "0px";
+        sencha.style.left = (shim + 20) + "px";
+        sencha.style.height = ((height/4)-5) + "px";
+
+        let xamarin = document.getElementById('Xamarin');
+        xamarin.style.width = (width /5.5) + "px";
+        xamarin.style.top   = (height/4) + "px";
+        xamarin.style.left = (shim + 20) + "px";
+        xamarin.style.height = ((height/4)-5) + "px";
+
+        let natives = document.getElementById('Natives');
+        natives.style.top  = ((height/4)+45) + "px";
+        natives.style.left = ((width/2)+50) + "px";
+        natives.style.borderStyle = "";
+
+        let arches = document.getElementById('Arches');
+        arches.style.top  = ((height/4)+45) + "px";
+        arches.style.left = ((width/4)+120) + "px";
+        arches.style.width = (width/4) + "px";
+        arches.style.height = (height/4) + "px";
+        arches.style.borderStyle = "";
+
+        let reactNative= document.getElementById('ReactNative');
+        reactNative.style.width = (width /5.5) + "px";
+        reactNative.style.top   = ((height/4)*2) + "px";
+        reactNative.style.left = (shim + 20) + "px";
+        reactNative.style.height = ((height/4)-5) + "px";
+
+        let jqueryM = document.getElementById('JQueryM');
+        jqueryM.style.width = (width /5.5) + "px";
+        jqueryM.style.top   = ((height/4)*3) + "px";
+        jqueryM.style.left = (shim + 20) + "px";
+        jqueryM.style.height = ((height/4)-5) + "px";
+
+        let mobileAngular = document.getElementById('MobileAngular');
+        mobileAngular.style.width = (width /5.5) + "px";
+        mobileAngular.style.top   = "0px";
+        mobileAngular.style.left = (shim + (width/4)) + "px";
+        mobileAngular.style.height = ((height/4)-5) + "px";
+
+        let framework7 = document.getElementById('Framework7');
+        framework7.style.width = (width /5.5) + "px";
+        framework7.style.top   = "0px";
+        framework7.style.left = (shim + ((width/4)*2)) + "px";
+        framework7.style.height = ((height/4)-5) + "px";
+
+        let ionic = document.getElementById('Ionic');
+        ionic.style.width = (width /5.5) + "px";
+        ionic.style.top   = "0px";
+        ionic.style.left = (shim + ((width/4)*3)) + "px";
+        ionic.style.height = ((height/4)-2) + "px";
+
+        let cordova = document.getElementById('Cordova');
+        cordova.style.width = (width /5.5) + "px";
+        cordova.style.top   = (height/4) + "px";
+        cordova.style.left = (shim + ((width/4)*3)) + "px";
+        cordova.style.height = ((height/4)-5) + "px";
+
+        let kendoUI = document.getElementById('KendoUI');
+        kendoUI.style.width = (width /5.5) + "px";
+        kendoUI.style.top   = ((height/4)*2) + "px";
+        kendoUI.style.left = (shim + ((width/4)*3)) + "px";
+        kendoUI.style.height = ((height/4)-5) + "px";
+
+        let quasar = document.getElementById('Quasar');
+        quasar.style.width = (width /5.5) + "px";
+        quasar.style.top   = ((height/4)*3) + "px";
+        quasar.style.left = (shim + ((width/4)*2)) + "px";
+        quasar.style.height = ((height/4)-5) + "px";
+
+        let onsenUI = document.getElementById('OnsenUI');
+        onsenUI.style.width = (width /5.5) + "px";
+        onsenUI.style.top   = ((height/4)*3) + "px";
+        onsenUI.style.left = (shim + (width/4)) + "px";
+        onsenUI.style.height = ((height/4)-5) + "px";
+
+        let titanium = document.getElementById('Titanium');
+        titanium.style.width = (width /5.5) + "px";
+        titanium.style.top   = ((height/4)*2) + "px";
+        titanium.style.left = (shim + (width/4)) + "px";
+        titanium.style.height = ((height/4)-5) + "px";
+
+        let nativeScript = document.getElementById('NativeScript');
+        nativeScript.style.width = (width /5.5) + "px";
+        nativeScript.style.top   = ((height/4)*2) + "px";
+        nativeScript.style.left = (shim + ((width/4)*2)) + "px";
+        nativeScript.style.height = ((height/4)-5) + "px";
+    }
+    window.addEventListener('resize', ()=>{ drawFloaters(); });
+    onload = ()=>{ drawFloaters(); }
+</script>
+
+<div id="Natives" class="Graphic" style="display:flex; flex-direction:column; align-content:flex-start; width:5%">
+    <div style="display:flex; flex-direction:column; ">
+        <div style="display:flex; flex-direction:row; ">
+            <img class="SmallIcons" src="~/Content/Graphics/Natives/Android.svg" />
+            <img class="Graphic Language" src="~/Content/Graphics/LanguageIcons/Java.svg" />
+            <img class="Graphic Language" src="~/Content/Graphics/LanguageIcons/Kotlin.svg" />
+        </div>
+        <div style="display:flex; flex-direction:row; ">
+            <img class="SmallIcons" src="~/Content/Graphics/Natives/iOS.svg" />
+            <img class="Graphic Language" src="~/Content/Graphics/LanguageIcons/ObjectiveC.svg" />
+            <img class="Graphic Language" src="~/Content/Graphics/LanguageIcons/Swift.svg" />
+        </div>
+        <img class="SmallIcons" src="~/Content/Graphics/Natives/WindowsPhone.svg" />
+        <img class="SmallIcons" src="~/Content/Graphics/Natives/Tizen.svg" />
+        <img class="SmallIcons" src="~/Content/Graphics/Natives/Blackberry.svg" />
+        <img class="SmallIcons" src="~/Content/Graphics/Natives/KindleFire.svg" />
+    </div>
+</div>
+
+<div class="Details Graphic" id="XamarinForms"      style="border-style:solid; background-color:white; border-color:orange">&nbsp;&nbsp;&nbsp;Xamarin.Forms</div>
+<div class="Details Graphic" id="XamarinIOS"        style="border-style:solid; background-color:white; border-color:blue"  >&nbsp;&nbsp;&nbsp;Xamarin.Android</div>
+<div class="Details Graphic" id="XamarinAndroid"    style="border-style:solid; background-color:white; border-color:blue"  >&nbsp;&nbsp;&nbsp;Xamarin.iOS</div>
+<div class="Details Graphic" id="ApacheDOM"         style="border-style:solid; background-color:white; background-color:yellow">&nbsp;&nbsp;&nbsp;DOM</div>
+<div class="Details Graphic" id="ApacheWKWebView"   style="border-style:solid; background-color:white; border-color:red">&nbsp;&nbsp;&nbsp;WebView</div>
+<div class="Details Graphic" id="ApacheWebView"     style="border-style:solid; background-color:white; border-color:red">&nbsp;&nbsp;&nbsp;WKWebView</div>
+<div class="Details Graphic" id="ApacheWinPhoneSDK" style="border-style:solid; background-color:white; border-color:red">&nbsp;&nbsp;&nbsp;Windows Phone SDK</div>
+
+<div id="Arches" class="Graphic" style="display:flex; flex-direction:column; ">
+    <div class="Arch" id="AndroidArch"   >Armabi, Thumb-2, VFPv3-D16, Aarch64, x86 32/64, MMX, SSE/2/3/4.1/4.2, POPCNT</div>
+    <div class="Arch" id="IOSArch"       >ARMv7 (Cortex, Swift), ARMv8 (Cyclone, Typhoon, Twister, Hurricane, Zephyr) </div>
+    <div class="Arch" id="WinPhoneArch"  >ARMv7-A 32, ARMv8-A 64, x86 32/64, Snapdragon </div>
+    <div class="Arch" id="BlackberryArch">ARMv7-A 32, ARMv8-A 64, x86</div>
+    <div class="Arch" id="TizenArch"     >ARMv7-A 32, ARMv8-A 64, x86 64</div>
+    <div class="Arch" id="KindleFireArch">ARMv7-A 32 Cortex</div>
+</div>
+
+<div id="Sencha" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Microsoft.svg" />
+        <img class="Product Graphic" src="~/Content/Graphics/Products/SenchaTouch.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Enterprise.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Tablet.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/HtmlCssJavascript.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Sass.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Cordova.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/ExtJS.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Angular.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/React.bmp.svg" />
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/WindowsPhone.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Tizen.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Blackberry.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/FireOS.svg" />
+        </div>
+    </div>
+</div>
+
+<div id="Xamarin" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Microsoft.svg"/>
+        <img class="Product Graphic" src="~/Content/Graphics/Products/Xamarin.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column; ">
+            <div style="display:flex; flex-direction:row; ">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/SmartTV.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Wearable.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Tablet.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%"> 
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/NET.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Xaml.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/CSh.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/FSh.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row; ">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/VbNet.bmp.svg" />
+                </div>
+            </div>            
+        </div>
+        <div style="display:flex; flex-direction:column; ">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/WindowsPhone.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Tizen.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Blackberry.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/FireOS.svg" />
+        </div>
+    </div>
+</div>
+
+<div id="ReactNative" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Facebook.svg" />
+        <img class="Product Graphic" src="~/Content/Graphics/Products/ReactNative.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/React.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Node.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/JSX.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Javascript.svg" />
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+        </div>
+    </div>
+</div>
+
+
+<div id="JQueryM" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Microsoft.svg" />
+        <img class="Product Graphic" src="~/Content/Graphics/Products/JQueryMobile.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/SmartTV.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Wearable.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Tablet.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/HtmlCssJavascript.bmp.svg" />
+                <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/JQuery.bmp.svg" />
+            </div>
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/WindowsPhone.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Tizen.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Blackberry.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/WebOS.svg" />
+        </div>
+    </div>
+</div>
+
+<div id="MobileAngular" class="productUnit">
+    <div style="display:flex; flex-direction:row; justify-content:flex-end">
+        <img class="Product Graphic" src="~/Content/Graphics/Products/MobileAngularUI.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row; ">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Cordova.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Fastclick.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Overthrow.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Angular.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Bootstrap.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Framework7" class="productUnit">
+    <div style="display:flex; flex-direction:row; justify-content:flex-end">
+        <img class="Product Graphic" src="~/Content/Graphics/Products/Framework7.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Fastclick.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Handlebars.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Angular.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/React.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Ionic" class="productUnit">
+    <div style="display:flex; flex-direction:row; justify-content:flex-end">
+        <img class="Product Graphic" src="~/Content/Graphics/Products/Ionic.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Blackberry.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/HtmlCssJavascript.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/TypescriptS.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Sass.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Electron.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/WebComponents.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Cordova.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Capacitor.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Angular.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/React.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Preact.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Vue.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Cordova" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Apache.svg" />
+        <img class="Product Graphic" src="~/Content/Graphics/Products/Cordova.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/WindowsPhone.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; ">
+                <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/HtmlCssJavascript.bmp.svg" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="KendoUI" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Telerik.svg" />
+        <img class="Product Graphic" src="~/Content/Graphics/Products/KendoUI.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/WindowsPhone.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Blackberry.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Enterprise.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Touch.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/HtmlCssJavascript.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Less.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/JQuery.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Node.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Angular.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/React.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Vue.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Bootstrap.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="Quasar" class="productUnit">
+    <div style="display:flex; flex-direction:row; justify-content:flex-end">
+        <img class="Product Graphic" src="~/Content/Graphics/Products/Quasar.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/WindowsPhone.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Blackberry.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/HtmlCssJavascript.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/WebComponents.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Vue.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Electron.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Babel.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Webpack.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/ESLint.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Uglify.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="OnsenUI" class="productUnit">
+    <div style="display:flex; flex-direction:row; justify-content:flex-end">
+        <img class="Product Graphic" src="~/Content/Graphics/Products/OnsenUI.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Tablet.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/HtmlCssJavascript.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/JQuery.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/WebComponents.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Topcoat.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Cordova.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Angular.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/AngularJS.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/React.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Vue.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Titanium" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Appcelerator.svg" />
+        <img class="Product Graphic" src="~/Content/Graphics/Products/Titanium.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Blackberry.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Tizen.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Tablet.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/XML.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Javascript.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row; ">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/Legend/Hyperloop.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="NativeScript" class="productUnit">
+    <div>
+        <img class="Company Graphic" src="~/Content/Graphics/Companies/Telerik.svg" />
+        <img class="Product Graphic" src="~/Content/Graphics/Products/Nativescript.svg" />
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+        <div style="display:flex; flex-direction:column">
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/Android.svg" />
+            <img class="SmallIcons Graphic" src="~/Content/Graphics/SmallLogos/iOS.svg" />
+        </div>
+        <div style="display:flex; flex-direction:column">
+            <div style="display:flex; flex-direction:row">
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Mobile.svg" />
+                <img class="Legend Graphic" src="~/Content/Graphics/Legend/Desktop.svg" />
+            </div>
+            <div style="display:flex; flex-direction:column; width:175%">
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/XML.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/CSS.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/TypescriptS.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Javascript.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row; ">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Node.bmp.svg" />
+                </div>
+                <div style="display:flex; flex-direction:row">
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Vue.bmp.svg" />
+                    <img class="OpsDeps Graphic" src="~/Content/Graphics/OpsDeps/Angular.bmp.svg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="floater" id="native"></div>
+<div class="floater" id="compileToNative"></div>
+<div class="floater" id="hybridWrapper"></div>
+<div style="position:absolute" id="nativeTitle">Native</div>
+<div style="position:absolute" id="compileToNativeTitle">Compile to native</div>
+<div style="position:absolute" id="hybridWrapperTitle">Hybrid/wrapper</div>
