@@ -158,6 +158,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Graphics\Cloud draft 2.jpg" />
+    <Content Include="Content\Graphics\Cloud partial draft 1.jpg" />
     <Content Include="Content\Graphics\Companies\Apache.svg" />
     <Content Include="Content\Graphics\Companies\Appcelerator.svg" />
     <Content Include="Content\Graphics\Companies\Facebook.svg" />
